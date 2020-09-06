@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.todolist.HomeFragment"
+        android:name="com.example.todolist.overview.OverviewFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_overview" />
 </navigation>
