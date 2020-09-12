@@ -29,7 +29,7 @@ class EditFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_edit, container, false)
         saveButton = view.findViewById(R.id.save_button)
         title = view.findViewById(R.id.title)
-        description = view.findViewById(R.id.description)
+        description = view.findViewById(R.id.task_description)
 
         val application = requireNotNull(this.activity).application
         val dao = ToDoListDatabase.getInstance(application).toDoListDatabaseDao
