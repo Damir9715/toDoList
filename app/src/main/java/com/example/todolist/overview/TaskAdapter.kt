@@ -20,18 +20,28 @@ class TaskAdapter : RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = data[position]
-        holder.title.text = item.title
-        holder.description.text = item.description
+        holder.bind(item)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskAdapter.ViewHolder {
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.text_item_task, parent, false)
-        return ViewHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return ViewHolder.from(parent)
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder private constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val title: TextView = itemView.findViewById(R.id.task_title)
         val description: TextView = itemView.findViewById(R.id.task_description)
+
+        fun bind(item: Task) {
+            title.text = item.title
+            description.text = item.description
+        }
+
+        companion object {
+            fun from(parent: ViewGroup): ViewHolder {
+                val view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.text_item_task, parent, false)
+                return ViewHolder(view)
+            }
+        }
     }
 }
