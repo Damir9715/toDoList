@@ -17,6 +17,6 @@ interface ToDoListDatabaseDao {
     @Delete
     fun deleteAllTasks(tasks: List<Task>): Int
 
-    @Query("select * from task limit 1")
-    fun getLast(): Task
+    @Query("select * from task order by taskId desc limit 1")
+    fun getLast(): Task?
 }

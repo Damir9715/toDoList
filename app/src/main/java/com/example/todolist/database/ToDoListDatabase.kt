@@ -28,8 +28,8 @@ abstract class ToDoListDatabase : RoomDatabase() {
                         "to_do_list_database"
                     ).fallbackToDestructiveMigration()
                         .build()
+                    INSTANCE = instance
                 }
-                INSTANCE = instance
                 return instance
             }
         }

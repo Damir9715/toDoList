@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">To Do List</string>
 
-    <string name="description">Just description</string>
+    <string name="contentDescription">Just description</string>
     <string name="hello_blank_fragment">Hello blank fragment\n
         Hello blank fragment\n
         Hello blank fragment\n
@@ -33,4 +33,9 @@
         Hello blank fragment\n
         Hello blank fragment\n
         Hello blank fragment\n</string>
+    <string name="about_text">About page</string>
+    <string name="about">About</string>
+    <string name="title">Title</string>
+    <string name="description">Type text</string>
+    <string name="save">Save</string>
 </resources>
