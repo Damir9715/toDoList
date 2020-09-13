@@ -4,12 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.todolist.R
 import com.example.todolist.database.ToDoListDatabase
@@ -25,9 +24,7 @@ class OverviewFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_overview, container, false
-        )
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_overview, container, false)
 
         binding.addFab.setOnClickListener(
             Navigation.createNavigateOnClickListener(R.id.action_overviewFragment_to_editFragment)
@@ -45,13 +42,20 @@ class OverviewFragment : Fragment() {
         binding.tasksList.layoutManager = manager
 
         val adapter = TaskAdapter(TaskListener { taskId ->
-            Toast.makeText(context, "$taskId", Toast.LENGTH_SHORT).show()
+            viewModel.onTaskClicked(taskId)
         })
         binding.tasksList.adapter = adapter
 
-        viewModel.tasks.observe(viewLifecycleOwner, Observer {
+        viewModel.tasks.observe(viewLifecycleOwner, {
             it?.let {
                 adapter.submitList(it)
+            }
+        })
+
+        viewModel.navigateToEdit.observe(viewLifecycleOwner, { task ->
+            task?.let {
+                this.findNavController().navigate(R.id.action_overviewFragment_to_editFragment)
+                viewModel.onEditNavigated()
             }
         })
 

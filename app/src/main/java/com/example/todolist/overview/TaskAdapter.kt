@@ -20,7 +20,7 @@ class TaskAdapter(val clickListener: TaskListener) :
         return ViewHolder.from(parent)
     }
 
-    class ViewHolder private constructor(val binding: TextItemTaskBinding) :
+    class ViewHolder(val binding: TextItemTaskBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Task, clickListener: TaskListener) {
             binding.task = item
