@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.todolist.R
 import com.example.todolist.database.ToDoListDatabase
 import com.example.todolist.databinding.FragmentOverviewBinding
@@ -38,6 +39,9 @@ class OverviewFragment : Fragment() {
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
+
+        val manager = GridLayoutManager(application, 2)
+        binding.tasksList.layoutManager = manager
 
         val adapter = TaskAdapter()
         binding.tasksList.adapter = adapter

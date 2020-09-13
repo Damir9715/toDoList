@@ -37,9 +37,9 @@ class EditFragment : Fragment() {
         val viewModel = ViewModelProvider(this, viewModelFactory).get(OverviewViewModel::class.java)
 
         saveButton.setOnClickListener {
-            val task = Task(title = title.text.toString(), description = description.text.toString())
+            val task =
+                Task(title = title.text.toString(), description = description.text.toString())
             viewModel.saveTask(task)
-//            println(task.toString())
         }
 
         return view
