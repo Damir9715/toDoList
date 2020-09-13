@@ -24,10 +24,13 @@ class OverviewFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_overview, container, false)
+        binding = DataBindingUtil.inflate(
+            inflater, R.layout.fragment_overview, container, false)
 
         binding.addFab.setOnClickListener(
-            Navigation.createNavigateOnClickListener(R.id.action_overviewFragment_to_editFragment)
+            Navigation.createNavigateOnClickListener(
+                OverviewFragmentDirections.actionOverviewFragmentToEditFragment()
+            )
         )
 
         val application = requireNotNull(this.activity).application
@@ -52,9 +55,10 @@ class OverviewFragment : Fragment() {
             }
         })
 
-        viewModel.navigateToEdit.observe(viewLifecycleOwner, { task ->
-            task?.let {
-                this.findNavController().navigate(R.id.action_overviewFragment_to_editFragment)
+        viewModel.navigateToEdit.observe(viewLifecycleOwner, { taskId ->
+            taskId?.let {
+                this.findNavController()
+                    .navigate(OverviewFragmentDirections.actionOverviewFragmentToEditFragment(taskId))
                 viewModel.onEditNavigated()
             }
         })
