@@ -25,7 +25,8 @@ class OverviewFragment : Fragment() {
     ): View? {
 
         binding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_overview, container, false)
+            inflater, R.layout.fragment_overview, container, false
+        )
 
         binding.addFab.setOnClickListener(
             Navigation.createNavigateOnClickListener(
@@ -35,7 +36,7 @@ class OverviewFragment : Fragment() {
 
         val application = requireNotNull(this.activity).application
         val dao = ToDoListDatabase.getInstance(application).toDoListDatabaseDao
-        val viewModelFactory = OverviewViewModelFactory(dao, application)
+        val viewModelFactory = OverviewViewModelFactory(dao)
         val viewModel = ViewModelProvider(this, viewModelFactory).get(OverviewViewModel::class.java)
 
         binding.viewModel = viewModel

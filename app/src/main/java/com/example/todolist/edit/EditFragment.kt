@@ -12,8 +12,6 @@ import com.example.todolist.R
 import com.example.todolist.database.Task
 import com.example.todolist.database.ToDoListDatabase
 import com.example.todolist.databinding.FragmentEditBinding
-import com.example.todolist.overview.OverviewViewModel
-import com.example.todolist.overview.OverviewViewModelFactory
 
 
 class EditFragment : Fragment() {
@@ -28,8 +26,8 @@ class EditFragment : Fragment() {
 
         val application = requireNotNull(this.activity).application
         val dao = ToDoListDatabase.getInstance(application).toDoListDatabaseDao
-        val viewModelFactory = OverviewViewModelFactory(dao, application)
-        val viewModel = ViewModelProvider(this, viewModelFactory).get(OverviewViewModel::class.java)
+        val viewModelFactory = EditViewModelFactory(dao)
+        val viewModel = ViewModelProvider(this, viewModelFactory).get(EditViewModel::class.java)
 
         val args = arguments?.let { EditFragmentArgs.fromBundle(it) }
 
