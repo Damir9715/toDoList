@@ -8,13 +8,18 @@
         <variable
             name="task"
             type="com.example.todolist.database.Task" />
+
+        <variable
+            name="clickListener"
+            type="com.example.todolist.overview.TaskListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:background="@drawable/layout_bg">
+        android:background="@drawable/layout_bg"
+        android:onClick="@{() -> clickListener.onClick(task)}">
 
         <TextView
             android:id="@+id/task_title"

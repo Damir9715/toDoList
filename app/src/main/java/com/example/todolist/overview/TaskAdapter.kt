@@ -8,11 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.database.Task
 import com.example.todolist.databinding.TextItemTaskBinding
 
-class TaskAdapter : ListAdapter<Task, TaskAdapter.ViewHolder>(TaskDiffCallback()) {
+class TaskAdapter(val clickListener: TaskListener) :
+    ListAdapter<Task, TaskAdapter.ViewHolder>(TaskDiffCallback()) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item)
+        holder.bind(item, clickListener)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -21,9 +22,12 @@ class TaskAdapter : ListAdapter<Task, TaskAdapter.ViewHolder>(TaskDiffCallback()
 
     class ViewHolder private constructor(val binding: TextItemTaskBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Task) {
+        fun bind(item: Task, clickListener: TaskListener) {
+            binding.task = item
             binding.taskTitle.text = item.title
             binding.taskDescription.text = item.description
+            binding.clickListener = clickListener
+            binding.executePendingBindings()
         }
 
         companion object {
@@ -44,4 +48,8 @@ class TaskDiffCallback : DiffUtil.ItemCallback<Task>() {
     override fun areContentsTheSame(oldItem: Task, newItem: Task): Boolean {
         return oldItem == newItem
     }
+}
+
+class TaskListener(val clickListener: (taskId: Long) -> Unit) {
+    fun onClick(task: Task) = clickListener(task.taskId)
 }
