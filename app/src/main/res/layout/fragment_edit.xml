@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.todolist.overview.OverviewViewModel" />
+            type="com.example.todolist.edit.EditViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
