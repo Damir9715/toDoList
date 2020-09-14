@@ -22,12 +22,14 @@ class EditFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_edit, container, false)
-
         val application = requireNotNull(this.activity).application
         val dao = ToDoListDatabase.getInstance(application).toDoListDatabaseDao
         val viewModelFactory = EditViewModelFactory(dao)
         val viewModel = ViewModelProvider(this, viewModelFactory).get(EditViewModel::class.java)
+
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_edit, container, false)
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
 
         val args = arguments?.let { EditFragmentArgs.fromBundle(it) }
 
