@@ -25,6 +25,7 @@
             android:ems="10"
             android:hint="@string/title"
             android:inputType="textPersonName"
+            android:text="@{viewModel.task.title}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -39,6 +40,7 @@
             android:gravity="start|top"
             android:hint="@string/description"
             android:inputType="textMultiLine"
+            android:text="@{viewModel.task.description}"
             app:layout_constraintBottom_toTopOf="@+id/save_button"
             app:layout_constraintEnd_toEndOf="@+id/title"
             app:layout_constraintStart_toStartOf="@+id/title"
