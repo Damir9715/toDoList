@@ -36,8 +36,8 @@ class EditFragment : Fragment() {
         binding.lifecycleOwner = this
 
         binding.saveFab.setOnClickListener {
-            saveButton(viewModel)
-            Toast.makeText(context, "Saved", Toast.LENGTH_SHORT).show()
+            if (saveButton(viewModel))
+                Toast.makeText(context, "Saved", Toast.LENGTH_SHORT).show()
         }
 
         return binding.root
@@ -48,23 +48,20 @@ class EditFragment : Fragment() {
         saveButton(viewModel)
     }
 
-    private fun saveButton(viewModel: EditViewModel) {
-        //if new task
-        if (viewModel.selectedTask.value!!.taskId == -1L) {
-            viewModel.saveTask(
-                Task(
-                    title = binding.title.text.toString(),
-                    description = binding.taskDescription.text.toString()
-                )
-            )
-        } else {
-            viewModel.updateTask(
-                Task(
-                    taskId = viewModel.selectedTask.value!!.taskId,
-                    title = binding.title.text.toString(),
-                    description = binding.taskDescription.text.toString()
-                )
-            )
+    private fun saveButton(viewModel: EditViewModel): Boolean {
+        val id = viewModel.selectedTask.value!!.taskId
+        val title = binding.title.text.toString()
+        val description = binding.taskDescription.text.toString()
+        //doesn't save empty Task
+        if (title != "" && description != "") {
+            //if new Task
+            if (id == -1L) {
+                viewModel.saveTask(Task(title = title, description = description))
+            } else {
+                viewModel.updateTask(Task(taskId = id, title = title, description = description))
+            }
+            return true
         }
+        return false
     }
 }

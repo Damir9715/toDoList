@@ -22,7 +22,6 @@ class EditViewModel(val task: Task, val dao: ToDoListDatabaseDao) : ViewModel() 
 
     fun saveTask(task: Task) {
         uiScope.launch {
-            //set generated id for update not insert on saveButton clicked
             _selectedTask.value!!.taskId = saveTaskToDatabase(task)
         }
     }
