@@ -50,6 +50,6 @@ class TaskDiffCallback : DiffUtil.ItemCallback<Task>() {
     }
 }
 
-class TaskListener(val clickListener: (taskId: Long) -> Unit) {
-    fun onClick(task: Task) = clickListener(task.taskId)
+class TaskListener(val clickListener: (item: Task) -> Unit) {
+    fun onClick(task: Task) = clickListener(task)
 }

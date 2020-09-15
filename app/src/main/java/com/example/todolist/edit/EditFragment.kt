@@ -16,33 +16,55 @@ import com.example.todolist.databinding.FragmentEditBinding
 
 class EditFragment : Fragment() {
     private lateinit var binding: FragmentEditBinding
+    private lateinit var task: Task
+    private lateinit var viewModel: EditViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
+        task = EditFragmentArgs.fromBundle(requireArguments()).task
+
         val application = requireNotNull(this.activity).application
         val dao = ToDoListDatabase.getInstance(application).toDoListDatabaseDao
-        val viewModelFactory = EditViewModelFactory(dao)
-        val viewModel = ViewModelProvider(this, viewModelFactory).get(EditViewModel::class.java)
+        val viewModelFactory = EditViewModelFactory(task, dao)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(EditViewModel::class.java)
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_edit, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        val args = arguments?.let { EditFragmentArgs.fromBundle(it) }
-
-        Toast.makeText(context, "TaskId: ${args!!.taskId}", Toast.LENGTH_SHORT).show()
-
-        binding.saveButton.setOnClickListener {
-            val task = Task(
-                title = binding.title.text.toString(),
-                description = binding.taskDescription.text.toString()
-            )
-            viewModel.saveTask(task)
+        binding.saveFab.setOnClickListener {
+            saveButton(viewModel)
+            Toast.makeText(context, "Saved", Toast.LENGTH_SHORT).show()
         }
 
         return binding.root
+    }
+
+    override fun onStop() {
+        super.onStop()
+        saveButton(viewModel)
+    }
+
+    private fun saveButton(viewModel: EditViewModel) {
+        //if new task
+        if (viewModel.selectedTask.value!!.taskId == -1L) {
+            viewModel.saveTask(
+                Task(
+                    title = binding.title.text.toString(),
+                    description = binding.taskDescription.text.toString()
+                )
+            )
+        } else {
+            viewModel.updateTask(
+                Task(
+                    taskId = viewModel.selectedTask.value!!.taskId,
+                    title = binding.title.text.toString(),
+                    description = binding.taskDescription.text.toString()
+                )
+            )
+        }
     }
 }

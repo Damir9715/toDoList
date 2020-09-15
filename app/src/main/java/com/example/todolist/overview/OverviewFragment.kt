@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.todolist.database.Task
 import com.example.todolist.database.ToDoListDatabase
 import com.example.todolist.databinding.FragmentOverviewBinding
 
@@ -26,7 +27,7 @@ class OverviewFragment : Fragment() {
 
         binding.addFab.setOnClickListener(
             Navigation.createNavigateOnClickListener(
-                OverviewFragmentDirections.actionOverviewFragmentToEditFragment()
+                OverviewFragmentDirections.actionOverviewFragmentToEditFragment(Task(-1, "", ""))
             )
         )
 
@@ -38,8 +39,8 @@ class OverviewFragment : Fragment() {
         val manager = GridLayoutManager(application, 2)
         binding.tasksList.layoutManager = manager
 
-        val adapter = TaskAdapter(TaskListener { taskId ->
-            viewModel.onTaskClicked(taskId)
+        val adapter = TaskAdapter(TaskListener { task ->
+            viewModel.onTaskClicked(task)
         })
         binding.tasksList.adapter = adapter
 
@@ -49,10 +50,10 @@ class OverviewFragment : Fragment() {
             }
         })
 
-        viewModel.navigateToEdit.observe(viewLifecycleOwner, { taskId ->
-            taskId?.let {
+        viewModel.navigateToEdit.observe(viewLifecycleOwner, {
+            it?.let {
                 this.findNavController()
-                    .navigate(OverviewFragmentDirections.actionOverviewFragmentToEditFragment(taskId))
+                    .navigate(OverviewFragmentDirections.actionOverviewFragmentToEditFragment(it))
                 viewModel.onEditNavigated()
             }
         })

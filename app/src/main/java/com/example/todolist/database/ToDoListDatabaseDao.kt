@@ -7,10 +7,10 @@ import androidx.room.*
 interface ToDoListDatabaseDao {
 
     @Insert
-    fun insert(task: Task)
+    fun insert(task: Task): Long
 
     @Update
-    fun udpate(task: Task)
+    fun update(task: Task)
 
     @Query("select * from task where taskId = :key")
     fun get(key: Long): Task

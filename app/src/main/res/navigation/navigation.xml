@@ -20,9 +20,8 @@
         android:label="fragment_edit"
         tools:layout="@layout/fragment_edit" >
         <argument
-            android:name="taskId"
-            app:argType="long"
-            android:defaultValue="-1L" />
+            android:name="task"
+            app:argType="com.example.todolist.database.Task" />
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
