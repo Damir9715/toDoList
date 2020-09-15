@@ -32,7 +32,7 @@ class EditFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        binding.saveButton.setOnClickListener {
+        binding.saveFab.setOnClickListener {
             //if new task
             if (viewModel.selectedTask.value!!.taskId == -1L) {
                 viewModel.saveTask(
