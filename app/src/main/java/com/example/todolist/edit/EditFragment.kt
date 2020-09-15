@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -50,6 +51,7 @@ class EditFragment : Fragment() {
                     )
                 )
             }
+            Toast.makeText(context, "Saved", Toast.LENGTH_SHORT).show()
         }
 
         return binding.root
