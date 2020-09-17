@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.todolist.R
 import com.example.todolist.database.Task
 import com.example.todolist.database.ToDoListDatabase
@@ -36,8 +37,11 @@ class EditFragment : Fragment() {
         binding.lifecycleOwner = this
 
         binding.saveFab.setOnClickListener {
-            if (saveButton(viewModel))
+            if (saveButton(viewModel)) {
                 Toast.makeText(context, "Saved", Toast.LENGTH_SHORT).show()
+                // back from the stack when save clicked
+                findNavController().navigateUp()
+            }
         }
 
         return binding.root
