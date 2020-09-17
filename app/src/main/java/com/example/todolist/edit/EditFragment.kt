@@ -19,6 +19,7 @@ class EditFragment : Fragment() {
     private lateinit var binding: FragmentEditBinding
     private lateinit var task: Task
     private lateinit var viewModel: EditViewModel
+    private var isSaved = false // don't save twice when navigateUp(), it calls onStop
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,9 +39,10 @@ class EditFragment : Fragment() {
 
         binding.saveFab.setOnClickListener {
             if (saveButton(viewModel)) {
+                isSaved = true
                 Toast.makeText(context, "Saved", Toast.LENGTH_SHORT).show()
                 // back from the stack when save clicked
-                findNavController().navigateUp()
+                findNavController().navigateUp() //calls onStop
             }
         }
 
@@ -49,7 +51,8 @@ class EditFragment : Fragment() {
 
     override fun onStop() {
         super.onStop()
-        saveButton(viewModel)
+        if (!isSaved)
+            saveButton(viewModel)
     }
 
     private fun saveButton(viewModel: EditViewModel): Boolean {

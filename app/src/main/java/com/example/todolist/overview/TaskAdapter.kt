@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.database.Task
-import com.example.todolist.databinding.TextItemTaskBinding
+import com.example.todolist.databinding.GridItemBinding
 
 class TaskAdapter(val clickListener: TaskListener) :
     ListAdapter<Task, TaskAdapter.ViewHolder>(TaskDiffCallback()) {
@@ -23,7 +23,7 @@ class TaskAdapter(val clickListener: TaskListener) :
         return ViewHolder.from(parent)
     }
 
-    class ViewHolder(val binding: TextItemTaskBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(val binding: GridItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Task) {
             binding.taskTitle.text = item.title
             binding.taskDescription.text = item.description
@@ -33,7 +33,7 @@ class TaskAdapter(val clickListener: TaskListener) :
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 return ViewHolder(
-                    TextItemTaskBinding.inflate(
+                    GridItemBinding.inflate(
                         LayoutInflater.from(parent.context),
                         parent,
                         false
