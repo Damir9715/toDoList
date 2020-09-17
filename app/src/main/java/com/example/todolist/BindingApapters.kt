@@ -13,8 +13,4 @@ fun bindRecyclerView(recyclerView: RecyclerView, data: List<Task>?) {
 }
 
 @BindingAdapter("textBinding")
-fun bindText(textView: TextView, text: String?) {
-    text?.let {
-        textView.text = text
-    }
-}
+fun bindText(textView: TextView, text: String?) = text?.let { textView.text = text }

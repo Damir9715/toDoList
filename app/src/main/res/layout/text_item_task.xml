@@ -10,12 +10,15 @@
             name="taskProperty"
             type="com.example.todolist.database.Task" />
 
+        <!--        <variable-->
+        <!--            name="viewModel"-->
+        <!--            type="com.example.todolist.edit.EditViewModel" />-->
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_margin="4dp"
         android:layout_height="wrap_content"
+        android:layout_margin="4dp"
         android:background="@drawable/layout_bg"
         android:orientation="vertical">
 

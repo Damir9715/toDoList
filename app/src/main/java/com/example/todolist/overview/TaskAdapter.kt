@@ -23,8 +23,7 @@ class TaskAdapter(val clickListener: TaskListener) :
         return ViewHolder.from(parent)
     }
 
-    class ViewHolder(val binding: TextItemTaskBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(val binding: TextItemTaskBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Task) {
             binding.taskTitle.text = item.title
             binding.taskDescription.text = item.description
