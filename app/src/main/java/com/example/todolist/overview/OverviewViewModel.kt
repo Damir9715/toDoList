@@ -11,11 +11,11 @@ class OverviewViewModel(dao: ToDoListDatabaseDao) : ViewModel() {
     val navigateToEdit
         get() = _navigateToEdit
 
-    fun onTaskClicked(task: Task) {
+    fun displayEditFragment(task: Task) {
         _navigateToEdit.value = task
     }
 
-    fun onEditNavigated() {
+    fun displayEditFragmentCompleted() {
         _navigateToEdit.value = null
     }
 

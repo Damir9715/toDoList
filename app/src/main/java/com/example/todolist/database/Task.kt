@@ -12,5 +12,10 @@ data class Task(
     @PrimaryKey(autoGenerate = true)
     var taskId: Long = 0L,
     var title: String,
-    var description: String
+    var description: String/*,
+    var status: TaskStatus*/
 ) : Parcelable
+
+//enum class TaskStatus(val value: String) {
+//    TO_DO("to_do"), IN_PROGRESS("in_progress"), DONE("done")
+//}

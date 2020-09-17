@@ -5,21 +5,22 @@
 
     <data>
 
+        <!--        Data class, not ViewModel-->
         <variable
-            name="task"
+            name="taskProperty"
             type="com.example.todolist.database.Task" />
 
-        <variable
-            name="clickListener"
-            type="com.example.todolist.overview.TaskListener" />
+        <!--        <variable-->
+        <!--            name="viewModel"-->
+        <!--            type="com.example.todolist.edit.EditViewModel" />-->
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_margin="4dp"
         android:background="@drawable/layout_bg"
-        android:onClick="@{() -> clickListener.onClick(task)}">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/task_title"
@@ -31,17 +32,20 @@
             android:textSize="32sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:textBinding="@{taskProperty.title}"
             tools:text="Title" />
 
         <TextView
             android:id="@+id/task_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:textColor="@color/cardview_light_background"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="@+id/task_title"
             app:layout_constraintTop_toBottomOf="@+id/task_title"
+            app:textBinding="@{taskProperty.description}"
             tools:text="Description" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </layout>
