@@ -13,7 +13,10 @@ class TaskAdapter(val clickListener: TaskListener) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item, clickListener)
+        holder.itemView.setOnClickListener {
+            clickListener.onClick(item)
+        }
+        holder.bind(item)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -22,34 +25,37 @@ class TaskAdapter(val clickListener: TaskListener) :
 
     class ViewHolder(val binding: TextItemTaskBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Task, clickListener: TaskListener) {
-            binding.task = item
+        fun bind(item: Task) {
             binding.taskTitle.text = item.title
             binding.taskDescription.text = item.description
-            binding.clickListener = clickListener
             binding.executePendingBindings()
         }
 
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
-                val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = TextItemTaskBinding.inflate(layoutInflater, parent, false)
-                return ViewHolder(binding)
+                return ViewHolder(
+                    TextItemTaskBinding.inflate(
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false
+                    )
+                )
             }
+        }
+    }
+
+    class TaskDiffCallback : DiffUtil.ItemCallback<Task>() {
+        override fun areItemsTheSame(oldItem: Task, newItem: Task): Boolean {
+            return oldItem.taskId == newItem.taskId
+        }
+
+        override fun areContentsTheSame(oldItem: Task, newItem: Task): Boolean {
+            return oldItem == newItem
         }
     }
 }
 
-class TaskDiffCallback : DiffUtil.ItemCallback<Task>() {
-    override fun areItemsTheSame(oldItem: Task, newItem: Task): Boolean {
-        return oldItem.taskId == newItem.taskId
-    }
 
-    override fun areContentsTheSame(oldItem: Task, newItem: Task): Boolean {
-        return oldItem == newItem
-    }
-}
-
-class TaskListener(val clickListener: (item: Task) -> Unit) {
+class TaskListener(val clickListener: (task: Task) -> Unit) {
     fun onClick(task: Task) = clickListener(task)
 }

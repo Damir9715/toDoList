@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import com.example.todolist.database.Task
 import com.example.todolist.database.ToDoListDatabase
 import com.example.todolist.databinding.FragmentOverviewBinding
@@ -35,19 +34,11 @@ class OverviewFragment : Fragment() {
         val dao = ToDoListDatabase.getInstance(application).toDoListDatabaseDao
         val viewModelFactory = OverviewViewModelFactory(dao)
         val viewModel = ViewModelProvider(this, viewModelFactory).get(OverviewViewModel::class.java)
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
 
-        val manager = GridLayoutManager(application, 2)
-        binding.tasksList.layoutManager = manager
-
-        val adapter = TaskAdapter(TaskListener { task ->
+        binding.tasksList.adapter = TaskAdapter(TaskListener { task ->
             viewModel.onTaskClicked(task)
-        })
-        binding.tasksList.adapter = adapter
-
-        viewModel.tasks.observe(viewLifecycleOwner, {
-            it?.let {
-                adapter.submitList(it)
-            }
         })
 
         viewModel.navigateToEdit.observe(viewLifecycleOwner, {
