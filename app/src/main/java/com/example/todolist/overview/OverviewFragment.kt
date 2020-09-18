@@ -60,8 +60,8 @@ class OverviewFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.show_to_do -> viewModel.setFilter(TaskStatus.TO_DO)
-            R.id.show_done -> viewModel.setFilter(TaskStatus.IN_PROGRESS)
-            R.id.show_in_progress -> viewModel.setFilter(TaskStatus.DONE)
+            R.id.show_in_progress -> viewModel.setFilter(TaskStatus.IN_PROGRESS)
+            R.id.show_done -> viewModel.setFilter(TaskStatus.DONE)
             else -> viewModel.setFilter(TaskStatus.ALL)
         }
         return true

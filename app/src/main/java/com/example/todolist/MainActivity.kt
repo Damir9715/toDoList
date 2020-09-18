@@ -9,6 +9,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.todolist.databinding.ActivityMainBinding
 
+// todo bug sometimes save fab in editFragment doesn't move with keyboard(stays under)
 class MainActivity : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navController: NavController

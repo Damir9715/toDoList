@@ -7,10 +7,10 @@ import com.example.todolist.database.Task
 import com.example.todolist.overview.TaskAdapter
 
 @BindingAdapter("listData")
-fun bindRecyclerView(recyclerView: RecyclerView, data: List<Task>?) {
-    val adapter = recyclerView.adapter as TaskAdapter
+fun RecyclerView.bindRecyclerView(data: List<Task>?) {
+    val adapter = this.adapter as TaskAdapter
     adapter.submitList(data)
 }
 
 @BindingAdapter("textBinding")
-fun bindText(textView: TextView, text: String?) = text?.let { textView.text = text }
+fun TextView.bindText(text: String?) = text?.let { this.text = text }

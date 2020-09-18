@@ -2,37 +2,6 @@
     <string name="app_name">To Do List</string>
 
     <string name="contentDescription">Just description</string>
-    <string name="hello_blank_fragment">Hello blank fragment\n
-        Hello blank fragment\n
-        Hello blank fragment\n
-        Hello blank fragment\n
-        Hello blank fragment\n
-        Hello blank fragment\n
-        Hello blank fragment\n
-        Hello blank fragment\n
-        Hello blank fragment\n
-        Hello blank fragment\n
-        Hello blank fragment\n
-        Hello blank fragment\n
-        Hello blank fragment\n
-        Hello blank fragment\n
-        Hello blank fragment\n
-        Hello blank fragment\n
-        Hello blank fragment\n
-        Hello blank fragment\n
-        Hello blank fragment\n
-        Hello blank fragment\n
-        Hello blank fragment\n
-        Hello blank fragment\n
-        Hello blank fragment\n
-        Hello blank fragment\n
-        Hello blank fragment\n
-        Hello blank fragment\n
-        Hello blank fragment\n
-        Hello blank fragment\n
-        Hello blank fragment\n
-        Hello blank fragment\n
-        Hello blank fragment\n</string>
     <string name="about_text">About page</string>
     <string name="about">About</string>
     <string name="title">Title</string>
@@ -43,4 +12,10 @@
     <string name="filter_in_progress">In progress</string>
     <string name="filter_done">Done</string>
     <string name="delete_button">Delete</string>
+
+    <string-array name="status_entries">
+        <item>To do</item>
+        <item>In progress</item>
+        <item>Done</item>
+    </string-array>
 </resources>

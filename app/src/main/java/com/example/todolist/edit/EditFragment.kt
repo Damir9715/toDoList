@@ -2,6 +2,9 @@ package com.example.todolist.edit
 
 import android.os.Bundle
 import android.view.*
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -14,11 +17,12 @@ import com.example.todolist.database.ToDoListDatabase
 import com.example.todolist.databinding.FragmentEditBinding
 
 
-class EditFragment : Fragment() {
+class EditFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private lateinit var binding: FragmentEditBinding
     private lateinit var task: Task
     private lateinit var viewModel: EditViewModel
     private var isSaved = false // don't save twice when navigateUp(), it calls onStop
+    private lateinit var spinner: Spinner
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,6 +39,16 @@ class EditFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_edit, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
+        spinner = binding.statusSpinner
+
+        ArrayAdapter.createFromResource(
+            requireNotNull(this.activity),
+            R.array.status_entries,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            spinner.adapter = adapter
+        }
 
         binding.saveFab.setOnClickListener {
             if (saveButton(viewModel)) {
@@ -45,6 +59,7 @@ class EditFragment : Fragment() {
             }
         }
 
+        spinner.onItemSelectedListener = this
         setHasOptionsMenu(true)
         return binding.root
     }
@@ -74,7 +89,7 @@ class EditFragment : Fragment() {
         val id = viewModel.selectedTask.value!!.taskId
         val title = binding.title.text.toString()
         val description = binding.taskDescription.text.toString()
-        val status = TaskStatus.TO_DO.value    //todo change status
+        val status = task.status
         //doesn't save empty Task
         if (title != "" && description != "") {
             //if new Task
@@ -91,4 +106,14 @@ class EditFragment : Fragment() {
         }
         return false
     }
+
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        task.status = when (position) {
+            0 -> TaskStatus.TO_DO.value
+            1 -> TaskStatus.IN_PROGRESS.value
+            else -> TaskStatus.DONE.value
+        }
+    }
+
+    override fun onNothingSelected(p0: AdapterView<*>?) {}
 }
