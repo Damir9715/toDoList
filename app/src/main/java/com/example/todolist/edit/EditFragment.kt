@@ -82,7 +82,7 @@ class EditFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 findNavController().navigateUp()
             }
         }
-        return true
+        return super.onOptionsItemSelected(item)
     }
 
     private fun saveButton(viewModel: EditViewModel): Boolean {

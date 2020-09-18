@@ -64,12 +64,12 @@ class OverviewFragment : Fragment() {
             R.id.show_done -> viewModel.setFilter(TaskStatus.DONE)
             else -> viewModel.setFilter(TaskStatus.ALL)
         }
-        return true
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.filter_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.filter_menu, menu)
     }
 
     // hide keyboard on fragment change
