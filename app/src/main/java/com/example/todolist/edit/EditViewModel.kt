@@ -43,4 +43,16 @@ class EditViewModel(val task: Task, val dao: ToDoListDatabaseDao) : ViewModel() 
             dao.update(task)
         }
     }
+
+    fun deleteTask(task: Task) {
+        uiScope.launch {
+            deleteTaskFromDatabase(task)
+        }
+    }
+
+    private suspend fun deleteTaskFromDatabase(task: Task) {
+        withContext(Dispatchers.IO) {
+            dao.delete(task)
+        }
+    }
 }

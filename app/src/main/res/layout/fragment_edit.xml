@@ -21,12 +21,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
             android:ems="10"
             android:hint="@string/title"
             android:inputType="textPersonName"
             android:text="@{viewModel.task.title}"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -41,9 +39,20 @@
             android:inputType="textMultiLine"
             android:text="@{viewModel.task.description}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/title"
+            app:layout_constraintEnd_toEndOf="@+id/status_spinner"
             app:layout_constraintStart_toStartOf="@+id/title"
             app:layout_constraintTop_toBottomOf="@+id/title" />
+
+        <Spinner
+            android:id="@+id/status_spinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/title"
+            app:layout_constraintTop_toTopOf="@+id/title" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/save_fab"

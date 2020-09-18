@@ -26,7 +26,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:listData="@{viewModel.tasks}"
+            app:listData="@{viewModel.filteredTasks}"
             app:spanCount="2"
             tools:itemCount="10"
             tools:listitem="@layout/grid_item" />
