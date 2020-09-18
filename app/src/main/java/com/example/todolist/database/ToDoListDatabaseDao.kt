@@ -18,8 +18,8 @@ interface ToDoListDatabaseDao {
     @Query("select * from task order by taskId desc")
     fun getAllTasks(): LiveData<List<Task>>
 
-//    @Query("select * from task order by taskId desc")
-//    fun getAllTasksByStatus(): LiveData<List<Task>>
+    @Query("select * from task where status like :status order by taskId desc")
+    fun getAllTasksByStatus(status: String): LiveData<List<Task>>
 
     @Delete
     fun deleteAllTasks(tasks: List<Task>): Int

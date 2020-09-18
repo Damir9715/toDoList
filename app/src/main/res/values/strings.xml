@@ -38,4 +38,8 @@
     <string name="title">Title</string>
     <string name="description">Type text</string>
     <string name="save">Save</string>
+    <string name="filter_all">All</string>
+    <string name="filter_to_do">To do</string>
+    <string name="filter_in_progress">In progress</string>
+    <string name="filter_done">Done</string>
 </resources>

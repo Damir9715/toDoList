@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.todolist.R
 import com.example.todolist.database.Task
+import com.example.todolist.database.TaskStatus
 import com.example.todolist.database.ToDoListDatabase
 import com.example.todolist.databinding.FragmentEditBinding
 
@@ -59,13 +60,18 @@ class EditFragment : Fragment() {
         val id = viewModel.selectedTask.value!!.taskId
         val title = binding.title.text.toString()
         val description = binding.taskDescription.text.toString()
+        val status = TaskStatus.TO_DO.value    //todo change status
         //doesn't save empty Task
         if (title != "" && description != "") {
             //if new Task
             if (id == -1L) {
-                viewModel.saveTask(Task(title = title, description = description))
+                viewModel.saveTask(Task(title = title, description = description, status = status))
             } else {
-                viewModel.updateTask(Task(taskId = id, title = title, description = description))
+                viewModel.updateTask(
+                    Task(
+                        taskId = id, title = title, description = description, status = status
+                    )
+                )
             }
             return true
         }
