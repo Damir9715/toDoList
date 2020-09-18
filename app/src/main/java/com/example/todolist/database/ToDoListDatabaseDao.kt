@@ -22,5 +22,5 @@ interface ToDoListDatabaseDao {
     fun getAllTasksByStatus(status: String): LiveData<List<Task>>
 
     @Delete
-    fun deleteAllTasks(tasks: List<Task>): Int
+    fun delete(task: Task)
 }
