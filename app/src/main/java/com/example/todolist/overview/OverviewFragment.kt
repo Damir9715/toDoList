@@ -35,7 +35,7 @@ class OverviewFragment : Fragment() {
         )
 
         val application = requireNotNull(this.activity).application
-        val dao = ToDoListDatabase.getInstance(application).toDoListDatabaseDao
+        val dao = ToDoListDatabase.getInstance(application).dao
         val viewModelFactory = OverviewViewModelFactory(dao)
         viewModel = ViewModelProvider(this, viewModelFactory).get(OverviewViewModel::class.java)
         binding.viewModel = viewModel

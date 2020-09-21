@@ -10,7 +10,7 @@ import kotlinx.coroutines.internal.synchronized
 @Database(entities = [Task::class], version = 1, exportSchema = false)
 abstract class ToDoListDatabase : RoomDatabase() {
 
-    abstract val toDoListDatabaseDao: ToDoListDatabaseDao
+    abstract val dao: ToDoListDatabaseDao
 
     companion object {
         @Volatile

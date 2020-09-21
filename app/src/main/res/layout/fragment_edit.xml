@@ -24,7 +24,7 @@
             android:ems="10"
             android:hint="@string/title"
             android:inputType="textPersonName"
-            android:text="@{viewModel.task.title}"
+            android:text="@{viewModel.selectedTask.title}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -37,7 +37,7 @@
             android:gravity="start|top"
             android:hint="@string/description"
             android:inputType="textMultiLine"
-            android:text="@{viewModel.task.description}"
+            android:text="@{viewModel.selectedTask.description}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/status_spinner"
             app:layout_constraintStart_toStartOf="@+id/title"

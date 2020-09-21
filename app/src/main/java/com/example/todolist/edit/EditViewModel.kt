@@ -1,16 +1,22 @@
 package com.example.todolist.edit
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.todolist.database.Task
-import com.example.todolist.database.ToDoListDatabaseDao
-import kotlinx.coroutines.*
+import com.example.todolist.database.ToDoListDatabase
+import com.example.todolist.repository.TaskRepository
+import kotlinx.coroutines.launch
 
-class EditViewModel(val task: Task, val dao: ToDoListDatabaseDao) : ViewModel() {
+class EditViewModel(task: Task, app: Application) : AndroidViewModel(app) {
 
-    private var viewModelJob = Job()
-    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+//    private var viewModelJob = Job()
+//    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+
+    private val db = ToDoListDatabase.getInstance(app)
+    private val repo = TaskRepository(db)
 
     private val _selectedTask = MutableLiveData<Task>()
     val selectedTask: LiveData<Task>
@@ -21,38 +27,20 @@ class EditViewModel(val task: Task, val dao: ToDoListDatabaseDao) : ViewModel() 
     }
 
     fun saveTask(task: Task) {
-        uiScope.launch {
-            _selectedTask.value!!.taskId = saveTaskToDatabase(task)
-        }
-    }
-
-    private suspend fun saveTaskToDatabase(task: Task): Long {
-        return withContext(Dispatchers.IO) {
-            dao.insert(task)
+        viewModelScope.launch {
+            _selectedTask.value!!.taskId = repo.saveTaskToDatabase(task)
         }
     }
 
     fun updateTask(task: Task) {
-        uiScope.launch {
-            updateTaskFromDatabase(task)
-        }
-    }
-
-    private suspend fun updateTaskFromDatabase(task: Task) {
-        withContext(Dispatchers.IO) {
-            dao.update(task)
+        viewModelScope.launch {
+            repo.updateTaskFromDatabase(task)
         }
     }
 
     fun deleteTask(task: Task) {
-        uiScope.launch {
-            deleteTaskFromDatabase(task)
-        }
-    }
-
-    private suspend fun deleteTaskFromDatabase(task: Task) {
-        withContext(Dispatchers.IO) {
-            dao.delete(task)
+        viewModelScope.launch {
+            repo.deleteTaskFromDatabase(task)
         }
     }
 }

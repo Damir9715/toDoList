@@ -13,7 +13,6 @@ import androidx.navigation.fragment.findNavController
 import com.example.todolist.R
 import com.example.todolist.database.Task
 import com.example.todolist.database.TaskStatus
-import com.example.todolist.database.ToDoListDatabase
 import com.example.todolist.databinding.FragmentEditBinding
 
 
@@ -31,9 +30,8 @@ class EditFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         task = EditFragmentArgs.fromBundle(requireArguments()).task
 
-        val application = requireNotNull(this.activity).application
-        val dao = ToDoListDatabase.getInstance(application).toDoListDatabaseDao
-        val viewModelFactory = EditViewModelFactory(task, dao)
+        val app = requireNotNull(this.activity).application
+        val viewModelFactory = EditViewModelFactory(task, app)
         viewModel = ViewModelProvider(this, viewModelFactory).get(EditViewModel::class.java)
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_edit, container, false)
