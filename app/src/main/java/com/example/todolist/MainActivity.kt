@@ -11,17 +11,18 @@ import androidx.navigation.ui.NavigationUI
 import com.example.todolist.databinding.ActivityMainBinding
 
 // todo bug sometimes save fab in editFragment doesn't move with keyboard(stays under)
+// todo navDrawer opens under action bar
 class MainActivity : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navController: NavController
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding: ActivityMainBinding =
-            DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         drawerLayout = binding.drawerLayout
-        navController = this.findNavController(R.id.navigationHostFragment)
+        navController = findNavController(R.id.navigationHostFragment)
 
         navController.addOnDestinationChangedListener { nc: NavController, nd: NavDestination, _ ->
             if (nd.id == nc.graph.startDestination) {
