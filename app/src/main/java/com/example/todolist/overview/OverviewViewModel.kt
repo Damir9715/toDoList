@@ -34,7 +34,7 @@ class OverviewViewModel(private val dao: ToDoListDatabaseDao) : ViewModel() {
     fun setFilter(status: TaskStatus) {
         when (status) {
             TaskStatus.ALL -> filterStatus.value = "%"
-            else -> filterStatus.value = status.value
+            else -> filterStatus.value = status.value.toString()
         }
     }
 

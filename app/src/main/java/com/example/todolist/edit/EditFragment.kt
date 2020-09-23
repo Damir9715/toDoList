@@ -46,6 +46,7 @@ class EditFragment : Fragment(), AdapterView.OnItemSelectedListener {
         ).also { adapter ->
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinner.adapter = adapter
+            spinner.setSelection(task.status)
         }
 
         binding.saveFab.setOnClickListener {
