@@ -13,9 +13,9 @@ data class Task(
     var taskId: Long = 0L,
     var title: String,
     var description: String,
-    var status: String
+    var status: Int
 ) : Parcelable
 
-enum class TaskStatus(val value: String) {
-    TO_DO("to_do"), IN_PROGRESS("in_progress"), DONE("done"), ALL("all")
+enum class TaskStatus(val value: Int) {
+    TO_DO(0), IN_PROGRESS(1), DONE(2), ALL(3)
 }
