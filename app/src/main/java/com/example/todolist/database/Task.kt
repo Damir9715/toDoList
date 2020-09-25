@@ -11,9 +11,9 @@ import kotlinx.android.parcel.Parcelize
 data class Task(
     @PrimaryKey(autoGenerate = true)
     var taskId: Long = 0L,
-    var title: String,
-    var description: String,
-    var status: Int
+    var title: String = "",
+    var description: String = "",
+    var status: Int = 0
 ) : Parcelable
 
 enum class TaskStatus(val value: Int) {

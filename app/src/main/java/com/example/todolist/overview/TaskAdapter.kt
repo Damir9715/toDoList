@@ -11,8 +11,9 @@ import com.example.todolist.databinding.GridItemBinding
 import kotlinx.android.synthetic.main.grid_item.view.*
 
 class TaskAdapter(
-    private val clickListener: TaskListener,
-    private val activity: Activity) :
+    private val activity: Activity,
+    private val clickListener: TaskListener
+) :
     ActionMode.Callback, ListAdapter<Task, TaskAdapter.ViewHolder>(TaskDiffCallback()) {
 
     private var isSelectMode = false
