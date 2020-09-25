@@ -18,6 +18,7 @@ import com.example.todolist.databinding.FragmentOverviewBinding
 class OverviewFragment : Fragment() {
     lateinit var viewModel: OverviewViewModel
     lateinit var binding: FragmentOverviewBinding
+    lateinit var taskAdapter: TaskAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,9 +42,10 @@ class OverviewFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        binding.tasksList.adapter = TaskAdapter(TaskListener { task ->
+        taskAdapter = TaskAdapter(TaskListener { task ->
             viewModel.displayEditFragment(task)
-        })
+        }, requireActivity())
+        binding.tasksList.adapter = taskAdapter
 
         viewModel.navigateToEdit.observe(viewLifecycleOwner, {
             it?.let {
@@ -78,5 +80,10 @@ class OverviewFragment : Fragment() {
         val imm =
             requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        taskAdapter.closeActionMode()
     }
 }
