@@ -23,4 +23,7 @@ interface ToDoListDatabaseDao {
 
     @Delete
     fun delete(task: Task)
+
+    @Query("delete from task where taskId in (:list)")
+    fun deleteList(list: List<Long>)
 }

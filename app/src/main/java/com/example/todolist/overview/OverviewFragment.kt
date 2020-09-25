@@ -46,7 +46,7 @@ class OverviewFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        taskAdapter = TaskAdapter(fragmentActivity, TaskListener { task ->
+        taskAdapter = TaskAdapter(fragmentActivity, viewModel, TaskListener { task ->
             viewModel.displayEditFragment(task)
         })
         binding.tasksList.adapter = taskAdapter

@@ -1,12 +1,10 @@
 package com.example.todolist.overview
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.example.todolist.database.Task
 import com.example.todolist.database.TaskStatus
 import com.example.todolist.repository.TaskRepository
+import kotlinx.coroutines.launch
 
 class OverviewViewModel(private val repo: TaskRepository) : ViewModel() {
 
@@ -40,5 +38,11 @@ class OverviewViewModel(private val repo: TaskRepository) : ViewModel() {
 
     private fun filterTasks(status: String): LiveData<List<Task>> {
         return repo.filterTasks(status)
+    }
+
+    fun deleteList(list: List<Long>) {
+        viewModelScope.launch {
+            repo.deleteTasksFromDatabase(list)
+        }
     }
 }
