@@ -16,6 +16,7 @@ import com.example.todolist.database.Task
 import com.example.todolist.database.TaskStatus
 import com.example.todolist.database.ToDoListDatabase
 import com.example.todolist.databinding.FragmentOverviewBinding
+import com.example.todolist.repository.TaskRepository
 
 
 class OverviewFragment : Fragment() {
@@ -39,13 +40,13 @@ class OverviewFragment : Fragment() {
 
         fragmentActivity = requireActivity()
         val application = fragmentActivity.application
-        val dao = ToDoListDatabase.getInstance(application).dao
-        val viewModelFactory = OverviewViewModelFactory(dao)
+        val db = ToDoListDatabase.getInstance(application)
+        val viewModelFactory = OverviewViewModelFactory(TaskRepository(db))
         viewModel = ViewModelProvider(this, viewModelFactory).get(OverviewViewModel::class.java)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        taskAdapter = TaskAdapter(fragmentActivity, TaskListener { task ->
+        taskAdapter = TaskAdapter(fragmentActivity, viewModel, TaskListener { task ->
             viewModel.displayEditFragment(task)
         })
         binding.tasksList.adapter = taskAdapter

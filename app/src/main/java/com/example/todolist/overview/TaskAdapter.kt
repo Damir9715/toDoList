@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.grid_item.view.*
 
 class TaskAdapter(
     private val activity: Activity,
+    private val viewModel: OverviewViewModel,
     private val clickListener: TaskListener
 ) :
     ActionMode.Callback, ListAdapter<Task, TaskAdapter.ViewHolder>(TaskDiffCallback()) {
@@ -34,7 +35,7 @@ class TaskAdapter(
                 }
             } else
                 clickListener.onClick(item)
-            println("selectedItem: ${selectedItems.map { it.taskId }}")
+//            println("selectedItem: ${selectedItems.map { it.taskId }}")
         }
 
         holder.itemView.setOnLongClickListener {
@@ -109,7 +110,8 @@ class TaskAdapter(
 
     override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
         if (item?.itemId == R.id.delete_button) {
-            println("deleted items: ${selectedItems.map { it.taskId }}")
+            viewModel.deleteList(selectedItems.map { it.taskId })
+            notifyDataSetChanged()
             mode?.finish()
         }
         return true

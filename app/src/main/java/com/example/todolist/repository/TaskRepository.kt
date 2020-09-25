@@ -25,6 +25,12 @@ class TaskRepository(private val db: ToDoListDatabase) {
         }
     }
 
+    suspend fun deleteTasksFromDatabase(task: List<Long>) {
+        withContext(Dispatchers.IO) {
+            db.dao.deleteList(task)
+        }
+    }
+
     fun filterTasks(status: String): LiveData<List<Task>> {
         return db.dao.getAllTasksByStatus(status)
     }
