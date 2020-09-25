@@ -20,6 +20,7 @@ class TaskAdapter(
     private var isSelectMode = false
     private val selectedItems = mutableListOf<Task>()
     private var actionMode: ActionMode? = null
+    private var counter: Int = 1
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
@@ -29,9 +30,13 @@ class TaskAdapter(
                 if (item in selectedItems) {
                     holder.itemView.checkBox.isChecked = false
                     selectedItems.remove(item)
+                    counter--
+                    actionMode?.title = "$counter"
                 } else {
                     holder.itemView.checkBox.isChecked = true
                     selectedItems.add(item)
+                    counter++
+                    actionMode?.title = "$counter"
                 }
             } else
                 clickListener.onClick(item)
@@ -102,6 +107,7 @@ class TaskAdapter(
 
     override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
         actionMode = mode
+        actionMode?.title = "1"
         mode?.menuInflater?.inflate(R.menu.detail_menu, menu)
         return true
     }
@@ -119,6 +125,7 @@ class TaskAdapter(
 
     override fun onDestroyActionMode(mode: ActionMode?) {
         isSelectMode = false
+        counter = 1
         selectedItems.clear()
         notifyDataSetChanged()
     }
