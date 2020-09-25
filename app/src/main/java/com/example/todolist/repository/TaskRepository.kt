@@ -1,5 +1,6 @@
 package com.example.todolist.repository
 
+import androidx.lifecycle.LiveData
 import com.example.todolist.database.Task
 import com.example.todolist.database.ToDoListDatabase
 import kotlinx.coroutines.Dispatchers
@@ -22,5 +23,9 @@ class TaskRepository(private val db: ToDoListDatabase) {
         withContext(Dispatchers.IO) {
             db.dao.delete(task)
         }
+    }
+
+    fun filterTasks(status: String): LiveData<List<Task>> {
+        return db.dao.getAllTasksByStatus(status)
     }
 }

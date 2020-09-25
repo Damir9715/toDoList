@@ -6,9 +6,9 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.example.todolist.database.Task
 import com.example.todolist.database.TaskStatus
-import com.example.todolist.database.ToDoListDatabaseDao
+import com.example.todolist.repository.TaskRepository
 
-class OverviewViewModel(private val dao: ToDoListDatabaseDao) : ViewModel() {
+class OverviewViewModel(private val repo: TaskRepository) : ViewModel() {
 
     private val _navigateToEdit = MutableLiveData<Task>()
     val navigateToEdit
@@ -39,6 +39,6 @@ class OverviewViewModel(private val dao: ToDoListDatabaseDao) : ViewModel() {
     }
 
     private fun filterTasks(status: String): LiveData<List<Task>> {
-        return dao.getAllTasksByStatus(status)
+        return repo.filterTasks(status)
     }
 }
