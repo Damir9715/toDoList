@@ -4,7 +4,10 @@ import android.content.Context
 import android.os.Bundle
 import android.view.*
 import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
@@ -18,6 +21,8 @@ import com.example.todolist.databinding.FragmentOverviewBinding
 class OverviewFragment : Fragment() {
     lateinit var viewModel: OverviewViewModel
     lateinit var binding: FragmentOverviewBinding
+    lateinit var taskAdapter: TaskAdapter
+    lateinit var fragmentActivity: FragmentActivity
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,22 +33,22 @@ class OverviewFragment : Fragment() {
 
         binding.addFab.setOnClickListener(
             Navigation.createNavigateOnClickListener(
-                OverviewFragmentDirections.actionOverviewFragmentToEditFragment(
-                    Task(-1, "", "", TaskStatus.TO_DO.value)
-                )
+                OverviewFragmentDirections.actionOverviewFragmentToEditFragment(Task(taskId = -1))
             )
         )
 
-        val application = requireNotNull(this.activity).application
+        fragmentActivity = requireActivity()
+        val application = fragmentActivity.application
         val dao = ToDoListDatabase.getInstance(application).dao
         val viewModelFactory = OverviewViewModelFactory(dao)
         viewModel = ViewModelProvider(this, viewModelFactory).get(OverviewViewModel::class.java)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        binding.tasksList.adapter = TaskAdapter(TaskListener { task ->
+        taskAdapter = TaskAdapter(fragmentActivity, TaskListener { task ->
             viewModel.displayEditFragment(task)
         })
+        binding.tasksList.adapter = taskAdapter
 
         viewModel.navigateToEdit.observe(viewLifecycleOwner, {
             it?.let {
@@ -54,6 +59,23 @@ class OverviewFragment : Fragment() {
         })
 
         setHasOptionsMenu(true)
+
+        val drawerLayout: DrawerLayout = fragmentActivity.findViewById(R.id.drawerLayout)
+        val toggle = object : ActionBarDrawerToggle(
+            fragmentActivity,
+            drawerLayout,
+            R.string.about, R.string.about
+        ) {
+
+            //todo resets filter when navigation drawer open
+            override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
+                taskAdapter.closeActionMode()   // close action mode when navDrawer opens
+                super.onDrawerSlide(drawerView, slideOffset)
+            }
+        }
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+
         return binding.root
     }
 
@@ -76,7 +98,12 @@ class OverviewFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         val imm =
-            requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            fragmentActivity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        taskAdapter.closeActionMode()
     }
 }
