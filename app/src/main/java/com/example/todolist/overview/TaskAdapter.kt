@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.R
 import com.example.todolist.database.Task
 import com.example.todolist.databinding.GridItemBinding
+import com.example.todolist.smartTruncate
 import kotlinx.android.synthetic.main.grid_item.view.*
 
 class TaskAdapter(
@@ -23,7 +24,7 @@ class TaskAdapter(
     private var counter: Int = 1
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = getItem(position)
+        val item: Task = getItem(position)
 
         holder.itemView.setOnClickListener {
             if (isSelectMode) {
@@ -81,9 +82,7 @@ class TaskAdapter(
             fun from(parent: ViewGroup): ViewHolder {
                 return ViewHolder(
                     GridItemBinding.inflate(
-                        LayoutInflater.from(parent.context),
-                        parent,
-                        false
+                        LayoutInflater.from(parent.context), parent, false
                     )
                 )
             }
