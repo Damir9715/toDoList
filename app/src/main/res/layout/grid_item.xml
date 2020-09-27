@@ -5,21 +5,16 @@
 
     <data>
 
-        <!--        Data class, not ViewModel-->
         <variable
             name="taskProperty"
             type="com.example.todolist.database.Task" />
-
-        <!--        <variable-->
-        <!--            name="viewModel"-->
-        <!--            type="com.example.todolist.edit.EditViewModel" />-->
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="2dp"
-        android:background="@drawable/layout_bg">
+        android:layout_margin="2dp">
+        <!--        android:background="@drawable/layout_bg"-->
 
         <TextView
             android:id="@+id/task_title"
@@ -28,24 +23,26 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="34dp"
-            android:textColor="@color/cardview_light_background"
+
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:textBinding="@{taskProperty.title}"
             tools:text="Title" />
+        <!--        android:textColor="@color/cardview_light_background"-->
 
         <TextView
             android:id="@+id/task_description"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/cardview_light_background"
+
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="@+id/task_title"
             app:layout_constraintTop_toBottomOf="@+id/task_title"
             app:textBinding="@{taskProperty.description}"
             tools:text="Description" />
+        <!--        android:textColor="@color/cardview_light_background"-->
 
         <CheckBox
             android:id="@+id/checkBox"
