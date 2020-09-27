@@ -40,16 +40,10 @@ class TaskAdapter(
                 }
             } else
                 clickListener.onClick(item)
-//            println("selectedItem: ${selectedItems.map { it.taskId }}")
         }
 
         holder.itemView.setOnLongClickListener {
-            if (isSelectMode) {
-//                isSelectMode = false
-//                holder.binding.checkBox.visibility = View.GONE
-//                holder.itemView.checkBox.isChecked = false  //todo doesn't uncheck all
-//                selectedItems.clear()
-            } else {
+            if (!isSelectMode) {
                 activity.startActionMode(this)
                 isSelectMode = true
                 holder.binding.checkBox.visibility = View.VISIBLE
@@ -63,6 +57,7 @@ class TaskAdapter(
             holder.itemView.checkBox.visibility = View.VISIBLE
         } else {
             holder.itemView.checkBox.visibility = View.GONE
+            holder.itemView.checkBox.isChecked = false
         }
 
         if (item in selectedItems)
