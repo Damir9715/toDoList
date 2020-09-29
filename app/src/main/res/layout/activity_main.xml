@@ -17,6 +17,7 @@
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
+                style="@style/MyActionBar"
                 android:layout_height="?attr/actionBarSize" />
 
             <androidx.fragment.app.FragmentContainerView
