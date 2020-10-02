@@ -16,7 +16,7 @@ class EditViewModel(task: Task, app: Application) : AndroidViewModel(app) {
 //    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     private val db = ToDoListDatabase.getInstance(app)
-    private val repo = TaskRepository(db)
+    private val repo = TaskRepository(db.dao)
 
     private val _selectedTask = MutableLiveData<Task>()
     val selectedTask: LiveData<Task>

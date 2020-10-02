@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.R
 import com.example.todolist.database.Task
 import com.example.todolist.databinding.GridItemBinding
+import com.example.todolist.smartTruncate
 import kotlinx.android.synthetic.main.grid_item.view.*
 
 class TaskAdapter(
@@ -20,31 +21,30 @@ class TaskAdapter(
     private var isSelectMode = false
     private val selectedItems = mutableListOf<Task>()
     private var actionMode: ActionMode? = null
+    private var counter: Int = 1
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = getItem(position)
+        val item: Task = getItem(position)
 
         holder.itemView.setOnClickListener {
             if (isSelectMode) {
                 if (item in selectedItems) {
                     holder.itemView.checkBox.isChecked = false
                     selectedItems.remove(item)
+                    counter--
+                    actionMode?.title = "$counter"
                 } else {
                     holder.itemView.checkBox.isChecked = true
                     selectedItems.add(item)
+                    counter++
+                    actionMode?.title = "$counter"
                 }
             } else
                 clickListener.onClick(item)
-//            println("selectedItem: ${selectedItems.map { it.taskId }}")
         }
 
         holder.itemView.setOnLongClickListener {
-            if (isSelectMode) {
-//                isSelectMode = false
-//                holder.binding.checkBox.visibility = View.GONE
-//                holder.itemView.checkBox.isChecked = false  //todo doesn't uncheck all
-//                selectedItems.clear()
-            } else {
+            if (!isSelectMode) {
                 activity.startActionMode(this)
                 isSelectMode = true
                 holder.binding.checkBox.visibility = View.VISIBLE
@@ -58,6 +58,7 @@ class TaskAdapter(
             holder.itemView.checkBox.visibility = View.VISIBLE
         } else {
             holder.itemView.checkBox.visibility = View.GONE
+            holder.itemView.checkBox.isChecked = false
         }
 
         if (item in selectedItems)
@@ -81,9 +82,7 @@ class TaskAdapter(
             fun from(parent: ViewGroup): ViewHolder {
                 return ViewHolder(
                     GridItemBinding.inflate(
-                        LayoutInflater.from(parent.context),
-                        parent,
-                        false
+                        LayoutInflater.from(parent.context), parent, false
                     )
                 )
             }
@@ -102,6 +101,7 @@ class TaskAdapter(
 
     override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
         actionMode = mode
+        actionMode?.title = "1"
         mode?.menuInflater?.inflate(R.menu.detail_menu, menu)
         return true
     }
@@ -119,6 +119,7 @@ class TaskAdapter(
 
     override fun onDestroyActionMode(mode: ActionMode?) {
         isSelectMode = false
+        counter = 1
         selectedItems.clear()
         notifyDataSetChanged()
     }

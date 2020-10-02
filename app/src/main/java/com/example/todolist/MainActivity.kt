@@ -11,7 +11,7 @@ import androidx.navigation.ui.NavigationUI
 import com.example.todolist.databinding.ActivityMainBinding
 
 // todo bug sometimes save fab in editFragment doesn't move with keyboard(stays under)
-// todo adapter holds activity from fragment
+// todo adapter holds activity and viewModel from fragment
 class MainActivity : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navController: NavController

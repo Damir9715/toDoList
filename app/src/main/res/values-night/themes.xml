@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/primaryLightColor</item>
+        <item name="colorPrimaryVariant">@color/primaryColor</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/secondaryLightColor</item>
+        <item name="colorSecondaryVariant">@color/secondaryColor</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+        <item name="android:colorBackground">@color/gblack</item>
+        <item name="android:actionBarStyle">@style/MyActionBar</item>
+
+
+        <item name="windowActionModeOverlay">true</item>
+    </style>
+
+    <style name="MyCardStyle">
+        <item name="cardBackgroundColor">@color/gblack</item>
+        <item name="cardCornerRadius">6dp</item>
+        <item name="strokeColor">@color/dark_grey</item>
+        <item name="rippleColor">@color/grey</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="cardElevation">0dp</item>
+    </style>
+
+    <style name="MyActionBar">
+        <item name="android:background">@color/black</item>
+    </style>
+
+</resources>

@@ -2,36 +2,26 @@ package com.example.todolist.repository
 
 import androidx.lifecycle.LiveData
 import com.example.todolist.database.Task
-import com.example.todolist.database.ToDoListDatabase
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import com.example.todolist.database.ToDoListDatabaseDao
 
-class TaskRepository(private val db: ToDoListDatabase) {
+class TaskRepository(private val dao: ToDoListDatabaseDao) {
     suspend fun saveTaskToDatabase(task: Task): Long {
-        return withContext(Dispatchers.IO) {
-            db.dao.insert(task)
-        }
+        return dao.insert(task)
     }
 
     suspend fun updateTaskFromDatabase(task: Task) {
-        withContext(Dispatchers.IO) {
-            db.dao.update(task)
-        }
+        dao.update(task)
     }
 
     suspend fun deleteTaskFromDatabase(task: Task) {
-        withContext(Dispatchers.IO) {
-            db.dao.delete(task)
-        }
+        dao.delete(task)
     }
 
     suspend fun deleteTasksFromDatabase(task: List<Long>) {
-        withContext(Dispatchers.IO) {
-            db.dao.deleteList(task)
-        }
+        dao.deleteList(task)
     }
 
     fun filterTasks(status: String): LiveData<List<Task>> {
-        return db.dao.getAllTasksByStatus(status)
+        return dao.getAllTasksByStatus(status)
     }
 }

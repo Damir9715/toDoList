@@ -41,7 +41,7 @@ class OverviewFragment : Fragment() {
         fragmentActivity = requireActivity()
         val application = fragmentActivity.application
         val db = ToDoListDatabase.getInstance(application)
-        val viewModelFactory = OverviewViewModelFactory(TaskRepository(db))
+        val viewModelFactory = OverviewViewModelFactory(TaskRepository(db.dao))
         viewModel = ViewModelProvider(this, viewModelFactory).get(OverviewViewModel::class.java)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
