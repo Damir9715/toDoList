@@ -1,7 +1,7 @@
 buildscript {
     ext {
         kotlin_version = "1.4.10"
-        gradle_version = "4.0.1"
+        gradle_version = '4.1.0'
         room_version = "2.2.5"
         nav_version = "2.3.0"
     }

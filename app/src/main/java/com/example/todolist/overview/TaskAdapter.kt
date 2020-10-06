@@ -8,13 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.R
 import com.example.todolist.database.Task
 import com.example.todolist.databinding.GridItemBinding
-import com.example.todolist.smartTruncate
 import kotlinx.android.synthetic.main.grid_item.view.*
 
 class TaskAdapter(
     private val activity: Activity,
     private val viewModel: OverviewViewModel,
-    private val clickListener: TaskListener
+    private val onClick: (Task) -> Unit
 ) :
     ActionMode.Callback, ListAdapter<Task, TaskAdapter.ViewHolder>(TaskDiffCallback()) {
 
@@ -40,7 +39,7 @@ class TaskAdapter(
                     actionMode?.title = "$counter"
                 }
             } else
-                clickListener.onClick(item)
+                onClick(item)
         }
 
         holder.itemView.setOnLongClickListener {
@@ -129,6 +128,6 @@ class TaskAdapter(
     }
 }
 
-class TaskListener(val clickListener: (task: Task) -> Unit) {
-    fun onClick(task: Task) = clickListener(task)
-}
+//class TaskListener(val clickListener: (task: Task) -> Unit) {
+//    fun onClick(task: Task) = clickListener(task)
+//}
