@@ -1,5 +1,6 @@
 package com.example.todolist
 
+import com.example.todolist.util.smartTruncate
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 

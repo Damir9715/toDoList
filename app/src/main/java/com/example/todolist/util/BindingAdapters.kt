@@ -1,10 +1,10 @@
-package com.example.todolist
+package com.example.todolist.util
 
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.database.Task
-import com.example.todolist.overview.TaskAdapter
+import com.example.todolist.ui.overview.TaskAdapter
 
 @BindingAdapter("listData")
 fun RecyclerView.bindRecyclerView(data: List<Task>?) {

@@ -7,13 +7,13 @@
 
         <variable
             name="viewModel"
-            type="com.example.todolist.overview.OverviewViewModel" />
+            type="com.example.todolist.ui.overview.OverviewViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".overview.OverviewFragment">
+        tools:context=".ui.overview.OverviewFragment">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/tasks_list"
@@ -21,7 +21,7 @@
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:padding="6dp"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

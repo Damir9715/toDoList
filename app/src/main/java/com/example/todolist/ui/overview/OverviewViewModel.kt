@@ -1,4 +1,4 @@
-package com.example.todolist.overview
+package com.example.todolist.ui.overview
 
 import androidx.lifecycle.*
 import com.example.todolist.database.Task

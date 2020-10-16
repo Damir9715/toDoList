@@ -1,4 +1,4 @@
-package com.example.todolist.edit
+package com.example.todolist.ui.edit
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

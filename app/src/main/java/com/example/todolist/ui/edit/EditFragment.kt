@@ -1,4 +1,4 @@
-package com.example.todolist.edit
+package com.example.todolist.ui.edit
 
 import android.os.Bundle
 import android.view.*
@@ -31,6 +31,9 @@ class EditFragment : Fragment(), AdapterView.OnItemSelectedListener {
         task = EditFragmentArgs.fromBundle(requireArguments()).task
 
         val app = requireNotNull(this.activity).application
+//        Avoid referencing a View or Activity context in your ViewModel.
+//        If the ViewModel outlives the activity (in case of configuration changes),
+//        your activity leaks and isn't properly disposed by the garbage collector.
         val viewModelFactory = EditViewModelFactory(task, app)
         viewModel = ViewModelProvider(this, viewModelFactory).get(EditViewModel::class.java)
 

@@ -1,4 +1,4 @@
-package com.example.todolist.overview
+package com.example.todolist.ui.overview
 
 import android.content.Context
 import android.os.Bundle
