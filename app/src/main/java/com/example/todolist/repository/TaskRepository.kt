@@ -3,8 +3,9 @@ package com.example.todolist.repository
 import androidx.lifecycle.LiveData
 import com.example.todolist.database.Task
 import com.example.todolist.database.ToDoListDatabaseDao
+import javax.inject.Inject
 
-class TaskRepository(private val dao: ToDoListDatabaseDao) {
+class TaskRepository @Inject constructor(private val dao: ToDoListDatabaseDao) {
     suspend fun saveTaskToDatabase(task: Task): Long {
         return dao.insert(task)
     }

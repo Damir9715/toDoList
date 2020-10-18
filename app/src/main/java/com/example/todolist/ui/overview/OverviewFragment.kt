@@ -17,13 +17,18 @@ import com.example.todolist.database.TaskStatus
 import com.example.todolist.database.ToDoListDatabase
 import com.example.todolist.databinding.FragmentOverviewBinding
 import com.example.todolist.repository.TaskRepository
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class OverviewFragment : Fragment() {
     lateinit var viewModel: OverviewViewModel
     lateinit var binding: FragmentOverviewBinding
     lateinit var taskAdapter: TaskAdapter
     lateinit var fragmentActivity: FragmentActivity
+
+    @Inject
+    lateinit var db: ToDoListDatabase
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,13 +45,12 @@ class OverviewFragment : Fragment() {
 
         fragmentActivity = requireActivity()
         val application = fragmentActivity.application
-        val db = ToDoListDatabase.getInstance(application)
         val viewModelFactory = OverviewViewModelFactory(TaskRepository(db.dao))
         viewModel = ViewModelProvider(this, viewModelFactory).get(OverviewViewModel::class.java)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        taskAdapter = TaskAdapter(fragmentActivity, viewModel)  { task ->
+        taskAdapter = TaskAdapter(fragmentActivity, viewModel) { task ->
             viewModel.displayEditFragment(task)
         }
         binding.tasksList.adapter = taskAdapter

@@ -10,9 +10,11 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.example.todolist.R
 import com.example.todolist.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
 // todo bug sometimes save fab in editFragment doesn't move with keyboard(stays under)
 // todo adapter holds activity and viewModel from fragment
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navController: NavController
@@ -24,8 +26,8 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
 
         drawerLayout = binding.drawerLayout
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.navigationHostFragment)
-                as NavHostFragment
+        val navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.navigationHostFragment) as NavHostFragment
         navController = navHostFragment.navController
 
         navController.addOnDestinationChangedListener { nc: NavController, nd: NavDestination, _ ->
