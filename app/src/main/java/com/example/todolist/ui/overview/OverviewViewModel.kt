@@ -1,12 +1,14 @@
 package com.example.todolist.ui.overview
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.example.todolist.database.Task
 import com.example.todolist.database.TaskStatus
 import com.example.todolist.repository.TaskRepository
 import kotlinx.coroutines.launch
 
-class OverviewViewModel(private val repo: TaskRepository) : ViewModel() {
+class OverviewViewModel @ViewModelInject constructor(private val repo: TaskRepository) :
+    ViewModel() {
 
     private val _navigateToEdit = MutableLiveData<Task>()
     val navigateToEdit
