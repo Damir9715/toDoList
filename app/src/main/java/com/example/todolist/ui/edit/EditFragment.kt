@@ -1,4 +1,4 @@
-package com.example.todolist.edit
+package com.example.todolist.ui.edit
 
 import android.os.Bundle
 import android.view.*
@@ -8,20 +8,21 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.todolist.R
 import com.example.todolist.database.Task
 import com.example.todolist.database.TaskStatus
 import com.example.todolist.databinding.FragmentEditBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class EditFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private lateinit var binding: FragmentEditBinding
     private lateinit var task: Task
-    private lateinit var viewModel: EditViewModel
     private var isSaved = false // don't save twice when navigateUp(), it calls onStop
     private lateinit var spinner: Spinner
+    private val viewModel: EditViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,10 +30,7 @@ class EditFragment : Fragment(), AdapterView.OnItemSelectedListener {
     ): View? {
 
         task = EditFragmentArgs.fromBundle(requireArguments()).task
-
-        val app = requireNotNull(this.activity).application
-        val viewModelFactory = EditViewModelFactory(task, app)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(EditViewModel::class.java)
+        viewModel.start(task)
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_edit, container, false)
         binding.viewModel = viewModel
@@ -95,11 +93,7 @@ class EditFragment : Fragment(), AdapterView.OnItemSelectedListener {
             if (id == -1L) {
                 viewModel.saveTask(Task(title = title, description = description, status = status))
             } else {
-                viewModel.updateTask(
-                    Task(
-                        taskId = id, title = title, description = description, status = status
-                    )
-                )
+                viewModel.updateTask(Task(id, title, description, status))
             }
             return true
         }

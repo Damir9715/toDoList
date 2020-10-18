@@ -1,4 +1,4 @@
-package com.example.todolist.overview
+package com.example.todolist.ui.overview
 
 import android.content.Context
 import android.os.Bundle
@@ -8,7 +8,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.example.todolist.R
@@ -17,13 +17,18 @@ import com.example.todolist.database.TaskStatus
 import com.example.todolist.database.ToDoListDatabase
 import com.example.todolist.databinding.FragmentOverviewBinding
 import com.example.todolist.repository.TaskRepository
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class OverviewFragment : Fragment() {
-    lateinit var viewModel: OverviewViewModel
+    private val viewModel: OverviewViewModel by viewModels()
     lateinit var binding: FragmentOverviewBinding
     lateinit var taskAdapter: TaskAdapter
     lateinit var fragmentActivity: FragmentActivity
+
+    @Inject
+    lateinit var db: ToDoListDatabase
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,14 +44,10 @@ class OverviewFragment : Fragment() {
         )
 
         fragmentActivity = requireActivity()
-        val application = fragmentActivity.application
-        val db = ToDoListDatabase.getInstance(application)
-        val viewModelFactory = OverviewViewModelFactory(TaskRepository(db.dao))
-        viewModel = ViewModelProvider(this, viewModelFactory).get(OverviewViewModel::class.java)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        taskAdapter = TaskAdapter(fragmentActivity, viewModel)  { task ->
+        taskAdapter = TaskAdapter(fragmentActivity, viewModel) { task ->
             viewModel.displayEditFragment(task)
         }
         binding.tasksList.adapter = taskAdapter
@@ -62,11 +63,7 @@ class OverviewFragment : Fragment() {
         setHasOptionsMenu(true)
 
         val drawerLayout: DrawerLayout = fragmentActivity.findViewById(R.id.drawerLayout)
-        val toggle = object : ActionBarDrawerToggle(
-            fragmentActivity,
-            drawerLayout,
-            R.string.about, R.string.about
-        ) {
+        val toggle = object : ActionBarDrawerToggle(fragmentActivity, drawerLayout, 0, 0) {
 
             //todo resets filter when navigation drawer open
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {

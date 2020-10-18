@@ -1,28 +1,21 @@
-package com.example.todolist.edit
+package com.example.todolist.ui.edit
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.todolist.database.Task
-import com.example.todolist.database.ToDoListDatabase
 import com.example.todolist.repository.TaskRepository
 import kotlinx.coroutines.launch
 
-class EditViewModel(task: Task, app: Application) : AndroidViewModel(app) {
-
-//    private var viewModelJob = Job()
-//    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-
-    private val db = ToDoListDatabase.getInstance(app)
-    private val repo = TaskRepository(db.dao)
+class EditViewModel @ViewModelInject constructor(private val repo: TaskRepository) : ViewModel() {
 
     private val _selectedTask = MutableLiveData<Task>()
     val selectedTask: LiveData<Task>
         get() = _selectedTask
 
-    init {
+    fun start(task: Task) {
         _selectedTask.value = task
     }
 
