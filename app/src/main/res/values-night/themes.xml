@@ -16,7 +16,7 @@
         <item name="android:colorBackground">@color/gblack</item>
         <item name="android:actionBarStyle">@style/MyActionBar</item>
 
-
+        <item name="deleteIcon">@color/secondaryColor</item>
         <item name="windowActionModeOverlay">true</item>
     </style>
 
