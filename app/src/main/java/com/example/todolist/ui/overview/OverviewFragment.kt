@@ -16,7 +16,6 @@ import com.example.todolist.database.Task
 import com.example.todolist.database.TaskStatus
 import com.example.todolist.database.ToDoListDatabase
 import com.example.todolist.databinding.FragmentOverviewBinding
-import com.example.todolist.repository.TaskRepository
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -56,7 +55,7 @@ class OverviewFragment : Fragment() {
             it?.let {
                 this.findNavController()
                     .navigate(OverviewFragmentDirections.actionOverviewFragmentToEditFragment(it))
-                viewModel.displayEditFragmentCompleted()
+//                viewModel.displayEditFragmentCompleted()
             }
         })
 

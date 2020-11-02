@@ -5,12 +5,13 @@ import androidx.lifecycle.*
 import com.example.todolist.database.Task
 import com.example.todolist.database.TaskStatus
 import com.example.todolist.repository.TaskRepository
+import com.example.todolist.util.LiveEvent
 import kotlinx.coroutines.launch
 
 class OverviewViewModel @ViewModelInject constructor(private val repo: TaskRepository) :
     ViewModel() {
 
-    private val _navigateToEdit = MutableLiveData<Task>()
+    private val _navigateToEdit = LiveEvent<Task>()
     val navigateToEdit
         get() = _navigateToEdit
 
@@ -27,9 +28,9 @@ class OverviewViewModel @ViewModelInject constructor(private val repo: TaskRepos
         _navigateToEdit.value = task
     }
 
-    fun displayEditFragmentCompleted() {
-        _navigateToEdit.value = null
-    }
+//    fun displayEditFragmentCompleted() {
+//        _navigateToEdit.value = null
+//    }
 
     fun setFilter(status: TaskStatus) {
         when (status) {
